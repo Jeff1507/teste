@@ -3,7 +3,9 @@ package ifpr.pgua.eic.colecaomusicas.model.entities;
 public class Playlist {
     private int id;
     private String nome;
+    private Musica musica;
 
+    
     
     public Playlist(int id, String nome) {
         this.id = id;
@@ -32,6 +34,13 @@ public class Playlist {
         return "Playlist [nome=" + nome + "]";
     }
 
-    
-    
+    public Musica getMusica() {
+        return musica;
+    }
+
+    public void setMusica(Musica musica) {
+        this.musica = musica;
+    }
+
+
 }
