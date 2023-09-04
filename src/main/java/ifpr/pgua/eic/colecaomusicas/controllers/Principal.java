@@ -35,5 +35,9 @@ public class Principal {
     private void listarMusicas(){
         App.pushScreen("LISTARMUSICAS");
     }
+        @FXML
+    private void cadastrarPlaylist(){
+        App.pushScreen("CADASTROPLAYLIST");
+    }
 
 }

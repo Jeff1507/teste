@@ -8,5 +8,10 @@ public interface PlaylistDAO {
     Resultado criar(Playlist playlist);
 
     Resultado listar();
+    Resultado getById(int id);
+
+    Resultado atualizar(int id, Playlist nova);
+
+    Resultado deletar(int id);
 
 }
