@@ -1,5 +1,6 @@
 package ifpr.pgua.eic.colecaomusicas.controllers;
 
+import ifpr.pgua.eic.colecaomusicas.App;
 import ifpr.pgua.eic.colecaomusicas.model.repositories.RepositorioGeneros;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -34,7 +35,7 @@ public class CadastroGenero {
 
     @FXML
     void cancelar(ActionEvent event) {
-
+        App.popScreen();
     }
 
 }
