@@ -13,13 +13,16 @@ import ifpr.pgua.eic.colecaomusicas.model.entities.Playlist;
 public class RepositorioPlaylist {
 
     private ArrayList<Playlist> playlists;
+
+    private ArrayList<Musica> musicas;
     
     private PlaylistDAO dao;
     private MusicaDAO musicaDao;
 
-    public RepositorioPlaylist(PlaylistDAO dao){
-        playlists = new ArrayList<>();
+    public RepositorioPlaylist(PlaylistDAO dao, MusicaDAO musicaDAO){
+        playlists=new ArrayList<>();
         this.dao = dao;
+        this.musicaDao=musicaDao;
     }
 
     public Resultado cadastrarPlaylist(String nome, List<Musica> musicas){
@@ -37,7 +40,26 @@ public class RepositorioPlaylist {
 
     public Resultado listarPlaylists(){
 
-        return dao.listar();
+        Resultado resultado=dao.listar();
+
+        if(resultado.foiSucesso()){
+            List<Playlist> lista=(List<Playlist>) resultado.comoSucesso().getObj();
+
+            for(Playlist p:lista){
+                Resultado r=musicaDao.buscarMusicasPlaylist(p.getId());
+
+                if(r.foiErro()){
+                    return r;
+                }
+                List<Musica> musicas=(List<Musica>) r.comoSucesso().getObj();
+                p.setMusicas(musicas);
+            }
+
+        }
+        return resultado;
+        
+
     }
+
 
 }

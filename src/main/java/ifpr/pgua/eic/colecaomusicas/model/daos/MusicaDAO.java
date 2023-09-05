@@ -12,5 +12,5 @@ public interface MusicaDAO {
     Resultado getById(int id);
     Resultado atualizar(int id, Musica nova);
     Resultado deletar(int id);
-    List<Musica> buscarMusicasPlaylist(int playlistid);
+    Resultado buscarMusicasPlaylist(int playlistid);
 }

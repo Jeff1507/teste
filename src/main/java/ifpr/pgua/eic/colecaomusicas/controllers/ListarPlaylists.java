@@ -35,16 +35,16 @@ public class ListarPlaylists implements Initializable{
         this.repositorioMusicas=repositorioMusicas;
     }
 
-    @FXML
+    /*@FXML
     void mostrarDetalhes(MouseEvent event){
-        /* 
+        
         Playlist playlist=lstPlaylists.getSelectionModel().getSelectedItem();
         if(playlist!=null){
             int PlaylistId=playlist.getId();
 
-            Resultado resultado=repositorio.li
-        }*/
-    }
+            Resultado resultado=repositorio.listarPlaylists();
+        }
+    }*/
 
     @FXML
     void voltar(ActionEvent event){
@@ -54,17 +54,18 @@ public class ListarPlaylists implements Initializable{
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         lstPlaylists.getItems().clear();
-        
+
         Resultado resultado=repositorio.listarPlaylists();
 
         if(resultado.foiErro()){
             Alert alert=new Alert(AlertType.ERROR, resultado.getMsg());
             alert.showAndWait();
+            return;
         }
-        else{
-            List<Playlist> lista = (List)resultado.comoSucesso().getObj();
-            lstPlaylists.getItems().addAll(lista);
-        }
+
+        List<Playlist> lista = (List)resultado.comoSucesso().getObj();
+        lstPlaylists.getItems().addAll(lista);
+        
 
     }
 }
