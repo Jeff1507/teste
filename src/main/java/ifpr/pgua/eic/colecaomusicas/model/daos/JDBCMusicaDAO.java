@@ -97,33 +97,26 @@ public class JDBCMusicaDAO implements MusicaDAO{
     }
 
     @Override
-    public List<Musica> buscarMusicasPlaylist(int playlistid) {
+    public Resultado buscarMusicasPlaylist(int playlistid) {
         List<Musica> musicasPlaylist=new ArrayList<>();
 
         try (Connection con=fabrica.getConnection()) {
-            PreparedStatement pstm=con.prepareStatement("SELECT musicaId FROM playlist_musica WHERE musica_id=?");
+            PreparedStatement pstm=con.prepareStatement("SELECT musica_id FROM playlist_musica WHERE musica_id=?");
 
             pstm.setInt(1, playlistid);
 
             ResultSet rs=pstm.executeQuery();
+            rs.next();
 
-            while(rs.next()){
-                int id=rs.getInt("id");
-                String nome = rs.getString("nome");
-                int duracao = rs.getInt("duracao");
-                int anoLancamento = rs.getInt("anoLancamento");
-                int artistaId = rs.getInt("artistaId");
-                int generoId = rs.getInt("generoId");
-
-                Musica musica=new Musica(id, nome, anoLancamento, duracao, null, null);
-                musicasPlaylist.add(musica);
-            }
-            return musicasPlaylist;
+            
+            return Resultado.sucesso("Ok", musicasPlaylist);
 
         } catch (SQLException e) {
-            return null;
+            return Resultado.erro(e.getMessage());
         }
     }
+
+
 
     @Override
     public Resultado getById(int id) {
