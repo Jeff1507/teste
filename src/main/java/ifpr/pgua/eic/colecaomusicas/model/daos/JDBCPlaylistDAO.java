@@ -16,7 +16,7 @@ public class JDBCPlaylistDAO implements PlaylistDAO{
 
     private static final String insertSQLPlay="INSERT INTO playlist(nome) VALUES (?)";
     private static final String insertSQLPlayMusica="INSERT INTO playlist_musica(playlist_id, musica_id) VALUES (?, ?)";
-    private static final String SELECTSQL="SELECT * FROM playlist_musica";
+    private static final String SELECTSQL="SELECT * FROM playlist";
 
     private FabricaConexoes fabrica;
 

@@ -34,24 +34,7 @@ public class RepositorioPlaylist {
 
     public Resultado listarPlaylists(){
 
-        Resultado resultado=dao.listar();
-
-        if(resultado.foiSucesso()){
-            List<Playlist> lista=(List<Playlist>) resultado.comoSucesso().getObj();
-
-            for(Playlist p:lista){
-                Resultado r=(Resultado) musicaDao.buscarMusicasPlaylist(p.getId());
-
-                if(r.foiSucesso()){
-                    List<Musica> musicas=(List<Musica>) r.comoSucesso().getObj();
-                    p.setMusicas(musicas);
-                }
-                return Resultado.sucesso("Playlists listadas!", lista);
-            }
-
-            
-        }
-        
+        return dao.listar();
     }
 
 }
