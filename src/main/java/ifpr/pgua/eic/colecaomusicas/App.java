@@ -100,7 +100,7 @@ public class App extends BaseAppNavigator {
         registraTela("CADASTROPLAYLIST",
                   new ScreenRegistryFXML(App.class, 
                       "cadastrar_playlist.fxml", 
-                      o->new CadastroPlaylist(repositorioPlaylist)
+                      o->new CadastroPlaylist(repositorioPlaylist, repositorioMusicas)
                   )
         );
     }

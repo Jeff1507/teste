@@ -27,12 +27,13 @@
          <children>
             <Button mnemonicParsing="false" onAction="#cadastrar" text="Cadastrar" />
             <Button mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
+            <Button mnemonicParsing="false" onAction="#adicionarMusicas" text="Adicionar musica(s)" />
          </children>
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
       </HBox>
-      <ListView prefHeight="356.0" prefWidth="176.0" GridPane.rowIndex="2" />
+      <ListView fx:id="lstMusicas" prefHeight="356.0" prefWidth="176.0" GridPane.rowIndex="2" />
       <Label text="Selecione as músicas" GridPane.rowIndex="1" />
    </children>
    <padding>

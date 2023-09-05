@@ -51,10 +51,10 @@ public class JDBCPlaylistDAO implements PlaylistDAO{
             int[] bResults=pstm2.executeBatch();
             for(int result: bResults){
                 if(result!=1){
-                    return Resultado.erro("Erro ao associar músicas à playlist.");
+                    return Resultado.erro("Erro ao adicionar músicas");
                 }
             }
-            return Resultado.erro("Erro desconhecido!");
+            return Resultado.erro("Playlist criada!");
 
         }
         catch (SQLException e) {
