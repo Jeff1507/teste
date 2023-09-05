@@ -65,12 +65,12 @@ public class CadastroPlaylist implements Initializable{
     void adicionarMusicas(){
         List<Musica> musicasSelecionadasTemp=lstMusicas.getSelectionModel().getSelectedItems();
         musicasSelecionadas.addAll(musicasSelecionadasTemp);
-        
+
         String str="";
         for(Musica m:musicasSelecionadas){
             str+=m.getNome()+";";
         }
-        Alert alert = new Alert(AlertType.INFORMATION, str);
+        Alert alert = new Alert(AlertType.INFORMATION, "Música(s) adicionadas");
         alert.showAndWait();
     }
     @Override

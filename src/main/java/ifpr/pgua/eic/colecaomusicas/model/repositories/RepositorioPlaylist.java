@@ -5,14 +5,17 @@ import java.util.List;
 
 import com.github.hugoperlin.results.Resultado;
 
+import ifpr.pgua.eic.colecaomusicas.model.daos.MusicaDAO;
 import ifpr.pgua.eic.colecaomusicas.model.daos.PlaylistDAO;
 import ifpr.pgua.eic.colecaomusicas.model.entities.Musica;
 import ifpr.pgua.eic.colecaomusicas.model.entities.Playlist;
 
 public class RepositorioPlaylist {
-        private ArrayList<Playlist> playlists;
+
+    private ArrayList<Playlist> playlists;
     
     private PlaylistDAO dao;
+    private MusicaDAO musicaDao;
 
     public RepositorioPlaylist(PlaylistDAO dao){
         playlists = new ArrayList<>();
@@ -23,7 +26,6 @@ public class RepositorioPlaylist {
         if(nome.isBlank() || nome.isEmpty()){
             return Resultado.erro("Nome invalido");
         }
-
         Playlist playlist = new Playlist(nome);
         playlist.setMusicas(musicas);
         Resultado resultado = dao.criar(playlist);
@@ -31,7 +33,25 @@ public class RepositorioPlaylist {
     }
 
     public Resultado listarPlaylists(){
-        return dao.listar();
+
+        Resultado resultado=dao.listar();
+
+        if(resultado.foiSucesso()){
+            List<Playlist> lista=(List<Playlist>) resultado.comoSucesso().getObj();
+
+            for(Playlist p:lista){
+                Resultado r=(Resultado) musicaDao.buscarMusicasPlaylist(p.getId());
+
+                if(r.foiSucesso()){
+                    List<Musica> musicas=(List<Musica>) r.comoSucesso().getObj();
+                    p.setMusicas(musicas);
+                }
+                return Resultado.sucesso("Playlists listadas!", lista);
+            }
+
+            
+        }
+        
     }
 
 }

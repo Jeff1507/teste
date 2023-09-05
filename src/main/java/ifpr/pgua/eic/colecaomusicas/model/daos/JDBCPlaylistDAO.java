@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import com.github.hugoperlin.results.Resultado;
 
@@ -33,7 +34,7 @@ public class JDBCPlaylistDAO implements PlaylistDAO{
 
             int ret=pstm.executeUpdate();
             if(ret!=1){
-                return Resultado.sucesso("Erro ao criar Playlist!", playlist);
+                return Resultado.erro("Erro ao criar Playlist!");
             }
             ResultSet rs=pstm.getGeneratedKeys();
             rs.next();
@@ -54,7 +55,7 @@ public class JDBCPlaylistDAO implements PlaylistDAO{
                     return Resultado.erro("Erro ao adicionar músicas");
                 }
             }
-            return Resultado.erro("Playlist criada!");
+            return Resultado.sucesso("Playlist criada!", playlist);
 
         }
         catch (SQLException e) {
@@ -65,8 +66,24 @@ public class JDBCPlaylistDAO implements PlaylistDAO{
 
     @Override
     public Resultado listar() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listar'");
+        try(Connection con=fabrica.getConnection()) {
+            PreparedStatement pstm=con.prepareStatement(SELECTSQL);
+
+            ResultSet rs=pstm.executeQuery();
+
+            ArrayList<Playlist> lista=new ArrayList<>();
+            while(rs.next()){
+                int id=rs.getInt("id");
+                String nome=rs.getString("nome");
+
+                Playlist playlist=new Playlist(id, nome);
+
+                lista.add(playlist);
+            }
+            return Resultado.sucesso("Playlists listadas", lista);
+        } catch (SQLException e) {
+            return Resultado.erro(e.getMessage());
+        }
     }
 
     @Override
