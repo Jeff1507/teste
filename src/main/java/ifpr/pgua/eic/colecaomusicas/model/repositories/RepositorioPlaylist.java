@@ -26,6 +26,9 @@ public class RepositorioPlaylist {
         if(nome.isBlank() || nome.isEmpty()){
             return Resultado.erro("Nome invalido");
         }
+        else if(musicas.isEmpty()){
+            return Resultado.erro("Nenhuma musica selecionada!");
+        }
         Playlist playlist = new Playlist(nome);
         playlist.setMusicas(musicas);
         Resultado resultado = dao.criar(playlist);

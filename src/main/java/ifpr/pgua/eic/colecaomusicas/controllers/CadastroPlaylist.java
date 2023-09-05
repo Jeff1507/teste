@@ -45,7 +45,6 @@ public class CadastroPlaylist implements Initializable{
         List<Musica> musicasPlaylist=new ArrayList<>(musicasSelecionadas);
 
         Resultado rs=repositorio.cadastrarPlaylist(nome, musicasPlaylist);
-
         Alert alert;
         String msg=rs.getMsg();
         if(rs.foiErro()){
@@ -65,13 +64,19 @@ public class CadastroPlaylist implements Initializable{
     void adicionarMusicas(){
         List<Musica> musicasSelecionadasTemp=lstMusicas.getSelectionModel().getSelectedItems();
         musicasSelecionadas.addAll(musicasSelecionadasTemp);
-
-        String str="";
-        for(Musica m:musicasSelecionadas){
-            str+=m.getNome()+";";
+        if(musicasSelecionadas.isEmpty()){
+            Alert alert=new Alert(AlertType.ERROR, "Selecione ao menos uma musica");
+            alert.showAndWait();
         }
-        Alert alert = new Alert(AlertType.INFORMATION, "Música(s) adicionadas");
-        alert.showAndWait();
+        else{
+            String str="";
+            for(Musica m:musicasSelecionadas){
+                str+=m.getNome()+";";
+            }
+            Alert alert = new Alert(AlertType.INFORMATION, "Música(s) adicionadas");
+            alert.showAndWait();
+        }
+
     }
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {

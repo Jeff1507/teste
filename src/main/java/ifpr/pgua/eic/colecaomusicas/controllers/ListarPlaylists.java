@@ -54,6 +54,7 @@ public class ListarPlaylists implements Initializable{
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         lstPlaylists.getItems().clear();
+        
         Resultado resultado=repositorio.listarPlaylists();
 
         if(resultado.foiErro()){
